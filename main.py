@@ -11,21 +11,18 @@ REST_NOTIFY_TITLE = "Protect Your Eyes!"
 REST_NOTIFY_BODY = f"Look at Something 6 meters away for {REST_SECONDS} seconds"
 
 WORK_NOTIFY_TITLE = "Eye Rest End"
-WORK_NOTIFY_BODY = "Time to get Back Work" 
+WORK_NOTIFY_BODY = "Time to get Back to Work" 
+
+def command(Title, Body):
+    if (HOST == "Linux"):
+        return ['notify-send', Title, Body]
+    elif (HOST == "Darwin"):
+        return ['osascript', '-e', f"display notification {Body} with title {Title}"]
+
 
 while (True):
     sleep(SLEEP_SECONDS)
-    
-    if (HOST == "Linux"):
-        run(['notify-send', REST_NOTIFY_TITLE, REST_NOTIFY_BODY])
-    elif (HOST == "Darwing"):
-        APPLE_NOTIFICATION = f"display notification {REST_NOTIFY_BODY} with title {REST_NOTIFY_TITLE}"
-        run(['osascript', '-e', APPLE_NOTIFICATION])
+    run(command(REST_NOTIFY_TITLE, REST_NOTIFY_BODY))
     
     sleep(REST_SECONDS)
-
-    if (HOST == "Linux"):
-        run(['notify-send', WORK_NOTIFY_TITLE, WORK_NOTIFY_BODY])
-    elif (HOST == "Darwing"):
-        APPLE_NOTIFICATION = f"display notification {WORK_NOTIFY_BODY} with title {WORK_NOTIFY_TITLE}"
-        run(['osascript', '-e', APPLE_NOTIFICATION])
+    run(command(WORK_NOTIFY_TITLE, WORK_NOTIFY_BODY))
