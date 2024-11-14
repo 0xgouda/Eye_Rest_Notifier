@@ -1,6 +1,12 @@
 from time import sleep
 from platform import system
 from subprocess import run
+from sys import argv
+
+if ('-h' or '--help' in argv):
+    print('-h or --help: show help menu\nUsage:\n\tpython3 main.py --rest-time=20s --sleep-time=30m\n\tpython3 main.py # will default to 20s rest time & 30m sleep time')
+    exit()
+
 
 SLEEP_MINUTES = 30
 SLEEP_SECONDS = SLEEP_MINUTES * 60
