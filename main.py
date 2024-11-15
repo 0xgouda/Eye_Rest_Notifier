@@ -1,6 +1,5 @@
 from time import sleep
-from platform import system
-from subprocess import run
+from plyer import notification
 import argparse
 
 parser = argparse.ArgumentParser(prog="python3 main.py",
@@ -29,16 +28,9 @@ REST_NOTIFY_BODY = f"Look at Something 6 meters away for {REST_SECONDS} seconds"
 WORK_NOTIFY_TITLE = "Eye Rest End"
 WORK_NOTIFY_BODY = "Time to get Back to Work" 
 
-HOST = system()
-def command(Title, Body):
-    if (HOST == "Linux"):
-        return ['notify-send', Title, Body]
-    elif (HOST == "Darwin"):
-        return ['osascript', '-e', f"display notification {Body} with title {Title}"]
-
 while (True):
     sleep(SLEEP_SECONDS)
-    run(command(REST_NOTIFY_TITLE, REST_NOTIFY_BODY))
+    notification.notify(title=REST_NOTIFY_TITLE, message=REST_NOTIFY_BODY)
     
     sleep(REST_SECONDS)
-    run(command(WORK_NOTIFY_TITLE, WORK_NOTIFY_BODY))
+    notification.notify(title=WORK_NOTIFY_TITLE, message=WORK_NOTIFY_BODY)
