@@ -3,7 +3,7 @@ from plyer import notification
 import argparse
 
 def parse_cli_args():
-    parser = argparse.ArgumentParser(prog="python3 main.py",
+    parser = argparse.ArgumentParser(prog="python3 notifier.py",
                                     description="Eye Rest Notifier Script", 
                                     epilog="Note: Time values default to seconds if no unit (s/m/h) is specified.")
     parser.add_argument('--rest-time', type=str, default='20s', help='Specify the rest time (default: 20s)')
