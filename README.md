@@ -1,6 +1,6 @@
 # Eye Rest Notifier
 - A simple Python script that helps you take periodic breaks from your screen to protect your eyes. It notifies you when it's time to rest your eyes and when it's time to get back to work.
-- Cross-platform: Works on Windows, macOS, and Linux.
+- Cross-platform: Works on Windows, macOS, and Linux (i use linux btw).
 
 # Requirements
 - Python 3.x
@@ -8,6 +8,11 @@
 ```bash
 pip install plyer
 ```
+# Installation
+```bash
+git clone https://github.com/0xgouda/Eye_Rest_Notifier
+```
+
 # Usage
 ```bash
 python3 notifier.py -h
