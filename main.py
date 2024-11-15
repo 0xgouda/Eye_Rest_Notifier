@@ -2,12 +2,15 @@ from time import sleep
 from plyer import notification
 import argparse
 
-parser = argparse.ArgumentParser(prog="python3 main.py",
-                                description="Eye Rest Notifier Script", 
-                                epilog="Note: Time values default to seconds if no unit (s/m/h) is specified.")
-parser.add_argument('--rest-time', type=str, default='20s', help='Specify the rest time (default: 20s)')
-parser.add_argument('--sleep-time', type=str, default='30m', help='Specify the sleep time (default: 30m)')
-args = parser.parse_args()
+def parse_cli_args():
+    parser = argparse.ArgumentParser(prog="python3 main.py",
+                                    description="Eye Rest Notifier Script", 
+                                    epilog="Note: Time values default to seconds if no unit (s/m/h) is specified.")
+    parser.add_argument('--rest-time', type=str, default='20s', help='Specify the rest time (default: 20s)')
+    parser.add_argument('--work-time', type=str, default='30m', help='Specify the work time (default: 30m)')
+    args = parser.parse_args()
+
+    return args
 
 def parse_time_in_seconds(time):
     if (time[-1] == 's'):
@@ -19,18 +22,24 @@ def parse_time_in_seconds(time):
     
     return int(time)
 
-SLEEP_SECONDS = parse_time_in_seconds(args.sleep_time)
-REST_SECONDS = parse_time_in_seconds(args.rest_time)
+def main():
+    args = parse_cli_args()
 
-REST_NOTIFY_TITLE = "Protect Your Eyes!"
-REST_NOTIFY_BODY = f"Look at Something 6 meters away for {REST_SECONDS} seconds"
+    WORK_SECONDS = parse_time_in_seconds(args.work_time)
+    REST_SECONDS = parse_time_in_seconds(args.rest_time)
 
-WORK_NOTIFY_TITLE = "Eye Rest End"
-WORK_NOTIFY_BODY = "Time to get Back to Work" 
+    REST_NOTIFY_TITLE = "Protect Your Eyes!"
+    REST_NOTIFY_BODY = f"Look at Something 6 meters away for {REST_SECONDS} seconds"
 
-while (True):
-    sleep(SLEEP_SECONDS)
-    notification.notify(title=REST_NOTIFY_TITLE, message=REST_NOTIFY_BODY)
-    
-    sleep(REST_SECONDS)
-    notification.notify(title=WORK_NOTIFY_TITLE, message=WORK_NOTIFY_BODY)
+    WORK_NOTIFY_TITLE = "Eye Rest End"
+    WORK_NOTIFY_BODY = "Time to get Back to Work" 
+
+    while (True):
+        sleep(WORK_SECONDS)
+        notification.notify(title=REST_NOTIFY_TITLE, message=REST_NOTIFY_BODY)
+        
+        sleep(REST_SECONDS)
+        notification.notify(title=WORK_NOTIFY_TITLE, message=WORK_NOTIFY_BODY)
+
+if (__name__ == '__main__'):
+    main()
